@@ -15,7 +15,7 @@ function rellenarArreglo(valor) {
 
         if (consulta2 === null) {
             alert("Cancelaste el proceso de relleno del arreglo")
-            
+            console.log("Se cancelo la operacion por el usuario")
             return;
         }
 
@@ -29,6 +29,24 @@ function rellenarArreglo(valor) {
 intro();
 rellenarArreglo(consulta1);
 
-let opciones = prompt("A continuacion tienes las siguientes operaciones para hacer con los numeros que ingresaste. Ingresa un 1: Sumar todos los numeros. Ingresa un 2: Multiplicar todos los numeros" );
+function sumar(array){
+    let suma = 0;
+     for (let i=0;i<array.length;i++){
+        suma += array[i];
+ }
+ return suma
+ }
 
+let opciones = parseInt(prompt("A continuacion tienes las siguientes operaciones para hacer con los numeros que ingresaste. Ingresa un 1: Sumar todos los numeros. Ingresa un 2: Multiplicar todos los numeros" ));
+
+switch (opciones) {
+    case 1:
+        let resultado1= sumar(numeros);
+        console.log(resultado1);
+        break;
+    
+    default:
+        console.log("Opción no reconocida");
+        break;
+}
 
