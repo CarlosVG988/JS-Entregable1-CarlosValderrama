@@ -37,6 +37,14 @@ function sumar(array){
  return suma
  }
 
+ function multiplicar(arreglo){
+    let mult = 1;
+     for (let i=0;i<arreglo.length;i++){
+        mult *= arreglo[i];
+ }
+ return mult
+ }
+
 let opciones = parseInt(prompt("A continuacion tienes las siguientes operaciones para hacer con los numeros que ingresaste. Ingresa un 1: Sumar todos los numeros. Ingresa un 2: Multiplicar todos los numeros" ));
 
 switch (opciones) {
@@ -44,6 +52,11 @@ switch (opciones) {
         let resultado1= sumar(numeros);
         console.log(resultado1);
         break;
+    
+        case 2:
+            let resultado2= multiplicar(numeros);
+            console.log(resultado2);
+            break;
     
     default:
         console.log("Opción no reconocida");
