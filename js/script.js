@@ -1,7 +1,7 @@
 
 let consulta1
 
-function intro(){
+function intro() {
     alert("Bienvenido a la calculadora de arrays")
     consulta1 = parseInt(prompt("Hola!, introduce el numero total de numeros enteros que requieres analizar"))
 }
@@ -29,37 +29,51 @@ function rellenarArreglo(valor) {
 intro();
 rellenarArreglo(consulta1);
 
-function sumar(array){
+function sumar(array) {
     let suma = 0;
-     for (let i=0;i<array.length;i++){
+    for (let i = 0; i < array.length; i++) {
         suma += array[i];
- }
- return suma
- }
+    }
+    return suma
+}
 
- function multiplicar(arreglo){
+function multiplicar(arreglo) {
     let mult = 1;
-     for (let i=0;i<arreglo.length;i++){
+    for (let i = 0; i < arreglo.length; i++) {
         mult *= arreglo[i];
- }
- return mult
- }
+    }
+    return mult
+}
 
-let opciones = parseInt(prompt("A continuacion tienes las siguientes operaciones para hacer con los numeros que ingresaste. Ingresa un 1: Sumar todos los numeros. Ingresa un 2: Multiplicar todos los numeros" ));
+
+let opciones;
+
+do{
+let opciones = parseInt(prompt("A continuacion tienes las siguientes operaciones para hacer con los numeros que ingresaste. Ingresa un 1: Sumar todos los numeros. Ingresa un 2: Multiplicar todos los numeros"));
 
 switch (opciones) {
     case 1:
-        let resultado1= sumar(numeros);
+        let resultado1 = sumar(numeros);
+        alert("El resultado de la suma de los numeros es:" + " " + resultado1 + " .Podras tambien ver el resultado en consola")
         console.log(resultado1);
         break;
-    
-        case 2:
-            let resultado2= multiplicar(numeros);
-            console.log(resultado2);
+
+    case 2:
+        let resultado2 = multiplicar(numeros);
+        alert("El resultado de la multiplicacion de los numeros es:" + " " + resultado2 + " .Podras tambien ver el resultado en consola")
+        console.log(resultado2);
+        break;
+
+    case 3:
+        alert("Opcion no valida, intente nuevamente")
             break;
-    
+
+
     default:
-        console.log("Opción no reconocida");
+        alert("Opción no reconocida, intente nuevamente");
         break;
 }
 
+}
+
+while (opciones !==3 )
