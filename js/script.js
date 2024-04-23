@@ -49,7 +49,7 @@ function multiplicar(arreglo) {
 let opciones;
 
 do{
-let opciones = parseInt(prompt("A continuacion tienes las siguientes operaciones para hacer con los numeros que ingresaste. Ingresa un 1: Sumar todos los numeros. Ingresa un 2: Multiplicar todos los numeros"));
+opciones = parseInt(prompt("A continuacion tienes las siguientes operaciones para hacer con los numeros que guardaste. Ingresa un 1: Sumar todos los numeros. Ingresa un 2: Multiplicar todos los numeros. Ingresa un 3: Termina el programa"));
 
 switch (opciones) {
     case 1:
@@ -65,7 +65,7 @@ switch (opciones) {
         break;
 
     case 3:
-        alert("Opcion no valida, intente nuevamente")
+        alert("Finalizara el programa, adios!")
             break;
 
 
@@ -76,4 +76,4 @@ switch (opciones) {
 
 }
 
-while (opciones !==3 )
+while (opciones !== 3 )
