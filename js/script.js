@@ -1,79 +1,79 @@
+// Objeto para manejar los eventos y funciones relacionadas
+const AnalisisNumeros = {
+    // Método para borrar los números ingresados
+    borrarNumeros: function() {
+        const numeros = document.querySelectorAll('.numero');
+        numeros.forEach(numero => numero.value = '');
+        localStorage.removeItem('resultado');
+        document.getElementById('resultado').innerText = '';
+    },
 
-let consulta1
+    // Método para analizar los números ingresados
+    analizarNumeros: function() {
+        const numeros = Array.from(document.querySelectorAll('.numero'))
+                            .map(numero => parseInt(numero.value))
+                            .filter(numero => !isNaN(numero)); // Filtrar los números no ingresados
 
-function intro() {
-    alert("Bienvenido a la calculadora de arrays")
-    consulta1 = parseInt(prompt("Hola!, introduce el numero total de numeros enteros que requieres analizar"))
-}
-
-numeros = [];
-function rellenarArreglo(valor) {
-
-
-    for (let i = 1; i <= consulta1; i++) {
-        let consulta2 = prompt("Introduce el numero (entero)" + " " + i + " " + "del arreglo")
-
-        if (consulta2 === null) {
-            alert("Cancelaste el proceso de relleno del arreglo")
-            console.log("Se cancelo la operacion por el usuario")
+        if (numeros.length === 0) {
+            document.getElementById('resultado').innerText = 'No se han ingresado números.';
             return;
         }
 
-        let consulta3 = parseInt(consulta2);
-        numeros.push(consulta3);
+        const primos = this.obtenerPrimos(numeros);
+        const suma = numeros.reduce((total, numero) => total + numero, 0);
+        const multiplicacion = numeros.reduce((total, numero) => total * numero, 1);
 
+        let resultadoText = '';
+        if (primos.length > 0) {
+            resultadoText += 'Existen números primos: ' + primos.join('-') + '. ';
+        } else {
+            resultadoText += 'No existen números primos. ';
+        }
+        resultadoText += 'La suma de los valores es: ' + suma + '. ';
+        resultadoText += 'La multiplicación de los valores es: ' + multiplicacion + '.';
+        document.getElementById('resultado').innerText = resultadoText;
+
+        // Guardar el resultado en local storage
+        localStorage.setItem('resultado', resultadoText);
+    },
+
+    // Método para obtener los números primos de un array de números
+    obtenerPrimos: function(numeros) {
+        const primos = [];
+        for (let numero of numeros) {
+            if (this.esPrimo(numero)) {
+                primos.push(numero);
+            }
+        }
+        return primos;
+    },
+
+    // Método para verificar si un número es primo
+    esPrimo: function(numero) {
+        if (numero <= 1) {
+            return false;
+        }
+        for (let i = 2; i <= Math.sqrt(numero); i++) {
+            if (numero % i === 0) {
+                return false;
+            }
+        }
+        return true;
     }
-    alert("Los numeros que ingresaste son los siguientes:" + " " + numeros.join("-"));
-}
+};
 
-intro();
-rellenarArreglo(consulta1);
+// Vincular explícitamente el contexto de this para los métodos
+AnalisisNumeros.borrarNumeros = AnalisisNumeros.borrarNumeros.bind(AnalisisNumeros);
+AnalisisNumeros.analizarNumeros = AnalisisNumeros.analizarNumeros.bind(AnalisisNumeros);
 
-function sumar(array) {
-    let suma = 0;
-    for (let i = 0; i < array.length; i++) {
-        suma += array[i];
+// Eventos
+document.getElementById('borrarNumeros').addEventListener('click', AnalisisNumeros.borrarNumeros);
+document.getElementById('analizarNumeros').addEventListener('click', AnalisisNumeros.analizarNumeros);
+
+// Cargar resultado desde local storage si existe
+window.onload = function() {
+    const resultadoGuardado = localStorage.getItem('resultado');
+    if (resultadoGuardado) {
+        document.getElementById('resultado').innerText = resultadoGuardado;
     }
-    return suma
-}
-
-function multiplicar(arreglo) {
-    let mult = 1;
-    for (let i = 0; i < arreglo.length; i++) {
-        mult *= arreglo[i];
-    }
-    return mult
-}
-
-
-let opciones;
-
-do{
-opciones = parseInt(prompt("A continuacion tienes las siguientes operaciones para hacer con los numeros que guardaste. Ingresa un 1: Sumar todos los numeros. Ingresa un 2: Multiplicar todos los numeros. Ingresa un 3: Termina el programa"));
-
-switch (opciones) {
-    case 1:
-        let resultado1 = sumar(numeros);
-        alert("El resultado de la suma de los numeros es:" + " " + resultado1 + " .Podras tambien ver el resultado en consola")
-        console.log(resultado1);
-        break;
-
-    case 2:
-        let resultado2 = multiplicar(numeros);
-        alert("El resultado de la multiplicacion de los numeros es:" + " " + resultado2 + " .Podras tambien ver el resultado en consola")
-        console.log(resultado2);
-        break;
-
-    case 3:
-        alert("Finalizara el programa, adios!")
-            break;
-
-
-    default:
-        alert("Opción no reconocida, intente nuevamente");
-        break;
-}
-
-}
-
-while (opciones !== 3 )
+};
